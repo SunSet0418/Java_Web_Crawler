@@ -30,6 +30,7 @@ public class GetHtml {
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
             e.printStackTrace();
+            logger.log(e.toString());
         }
         System.out.println(doc);
         return doc;

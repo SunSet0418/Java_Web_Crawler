@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class FrameClass extends JFrame {
@@ -18,7 +20,24 @@ public class FrameClass extends JFrame {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                result.setText(code.getHtml(input.getText()).toString());
+                String html = code.getHtml(input.getText()).toString();
+                result.setText(html);
+                try
+                {
+                    FileWriter fw = new FileWriter("out.html"); // 절대주소 경로 가능
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    String str = html;
+
+                    bw.write(str);
+                    bw.newLine(); // 줄바꿈
+
+                    bw.close();
+                }
+                catch (IOException er)
+                {
+                    System.err.println(er); // 에러가 있다면 메시지 출력
+                    System.exit(1);
+                }
             }
         });
         result.setEditable(false);
