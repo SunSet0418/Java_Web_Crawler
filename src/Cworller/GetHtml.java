@@ -2,13 +2,7 @@ package Cworller;
 
 import org.jsoup.Jsoup;
 
-import javax.swing.text.Document;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 
 import static com.sun.activation.registries.LogSupport.log;
 
@@ -23,14 +17,14 @@ public class GetHtml {
 //        return output;
 //    }
 
-    LoggerClass logger = new LoggerClass();
+    Logger logger = new Logger();
     public org.jsoup.nodes.Document getHtml(String url) {
         org.jsoup.nodes.Document doc = null;
         try {
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
-            e.printStackTrace();
             logger.log(e.toString());
+            e.printStackTrace();
         }
         System.out.println(doc);
         return doc;
