@@ -23,7 +23,7 @@ public class GetHtml {
         try {
             doc = Jsoup.connect(url).get();
         } catch (IOException e) {
-            logger.log(e.toString());
+            logger.alert(e.toString());
             e.printStackTrace();
         }
         System.out.println(doc);

@@ -26,12 +26,12 @@ public class Save {
             }
             catch (IOException er)
             {
-                alert.log(er.toString()); // 에러가 있다면 메시지 출력
+                alert.alert(er.toString()); // 에러가 있다면 메시지 출력
             }
             System.out.println("Save as file: " + f.getAbsolutePath());
-            if(userSelection == 0){
+            if(userSelection==0){
                 returnvalue = f.getAbsolutePath();
-                alert.show(returnvalue+"에 저장되었습니다");
+                alert.show(returnvalue+"로 저장되었습니다");
             }
 
         }

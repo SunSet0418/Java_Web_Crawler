@@ -67,9 +67,9 @@ public class Frame extends JFrame {
 						else{
 							String html = code.getHtml(url.getText()).toString();
 							result.setText(html);
-							alert.show("파싱완료");
 							logger.save(url.getText());
 							status.setText("파싱완료");
+							alert.show("파싱완료");
 						}
 					}
 				}

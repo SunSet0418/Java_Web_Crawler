@@ -10,6 +10,7 @@ public class Logger extends Alert{
     public void save(String url){
         System.out.println(data.size());
         data.add(i+" : "+url);
+        i++;
         System.out.println(data);
     }
 
