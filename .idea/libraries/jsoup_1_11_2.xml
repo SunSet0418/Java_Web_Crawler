@@ -5,8 +5,5 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES />
-    <excluded>
-      <root url="jar://$PROJECT_DIR$/src/lib/jsoup-1.11.2.jar!/" />
-    </excluded>
   </library>
 </component>

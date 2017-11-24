@@ -65,11 +65,12 @@ public class Frame extends JFrame {
 							alert.alert("HOST를 입력하세요");
 						}
 						else{
-							String html = code.getHtml(url.getText()).toString();
+							String link = url.getText();
+							String html = code.getHtml(link).toString();
 							result.setText(html);
-							logger.save(url.getText());
 							status.setText("파싱완료");
 							alert.show("파싱완료");
+							logger.save(url.getText());
 						}
 					}
 				}
