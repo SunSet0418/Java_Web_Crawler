@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="Java_WebCwroller:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Java_WebCwroller_jar</output-path>
-    <root id="archive" name="Java_WebCwroller.jar">
-      <element id="module-output" name="Java_WebCwroller" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/lib/jsoup-1.11.2.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>

@@ -5,49 +5,89 @@ import Cworller.GetHtml;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 
 public class Frame extends JFrame {
 
 	private JPanel contentPane;
 
+	Boolean type = false;
+
+	JTextArea result = new JTextArea();
+	JTextArea csstext = new JTextArea();
+
+	GetHtml code = new GetHtml();
+	Alert alert = new Alert();
+	Logger logger = new Logger();
+	Save filesave = new Save();
+	JLabel urllabel = new JLabel("URL : ");
+	JTextArea url = new JTextArea();
+	JButton https = new JButton("HTTPS");
+
+	JLabel status = new JLabel("Program Status Success");
+	JButton parsing = new JButton("GET");
+	JButton log = new JButton("검색기록");
+	JLabel lblCssSelector = new JLabel("CSS Selector : ");
+	JLabel lblAttr = new JLabel("Attr : ");
+	JButton save = new JButton("파일저장");
+	ButtonGroup radiogroup = new ButtonGroup();
+	JButton http = new JButton("HTTP");
+	JRadioButton radioButton = new JRadioButton("텍스트");
+	JRadioButton radioButton_1 = new JRadioButton("속성값 불러오기");
+	JTextArea cssselector = new JTextArea();
+	JTextArea attr = new JTextArea();
+
 	public Frame() {
 		setTitle("HTML Parser");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 800);
-		JTextArea result = new JTextArea();
 		contentPane = new JPanel();
-		GetHtml code = new GetHtml();
-		Alert alert = new Alert();
-		Logger logger = new Logger();
-		Save filesave = new Save();
-		JLabel status = new JLabel("Program Status Success");
+
+
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel urllabel = new JLabel("URL : ");
+
 		urllabel.setBounds(6, 6, 36, 16);
 		contentPane.add(urllabel);
 
-		JTextArea url = new JTextArea();
+
 		url.setBounds(46, 6, 844, 16);
 		contentPane.add(url);
 
-		JButton parsing = new JButton("GET");
+
+		lblCssSelector.setBounds(6, 34, 92, 16);
+		contentPane.add(lblCssSelector);
+
+		radioButton.addItemListener(new MyItemListener());
+		radiogroup.add(radioButton);
+		radioButton.setBounds(208, 744, 65, 23);
+		contentPane.add(radioButton);
+
+
+		radioButton_1.addItemListener(new MyItemListener());
+		radiogroup.add(radioButton_1);
+		radioButton_1.setBounds(276, 744, 117, 23);
+		contentPane.add(radioButton_1);
+
+
+		attr.setBounds(46, 62, 844, 16);
+		contentPane.add(attr);
+
+
+		cssselector.setBounds(96, 34, 794, 16);
+		contentPane.add(cssselector);
+
+
 		parsing.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(url.getText().equals("")){
@@ -67,6 +107,14 @@ public class Frame extends JFrame {
 						else{
 							String link = url.getText();
 							String html = code.getHtml(link).toString();
+							if(type == false){
+								String text = code.getData(cssselector.getText());
+								csstext.setText(text);
+							}
+							else if(type == true){
+								String text = code.getAttr(cssselector.getText(), attr.getText());
+								csstext.setText(text);
+							}
 							result.setText(html);
 							status.setText("파싱완료");
 							alert.show("파싱완료");
@@ -77,10 +125,10 @@ public class Frame extends JFrame {
 
 			}
 		});
-		parsing.setBounds(902, 1, 92, 29);
+		parsing.setBounds(902, 8, 92, 70);
 		contentPane.add(parsing);
 
-		JButton save = new JButton("파일저장");
+
 		save.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -97,7 +145,7 @@ public class Frame extends JFrame {
 		save.setBounds(877, 743, 117, 29);
 		contentPane.add(save);
 
-		JButton http = new JButton("HTTP");
+
 		http.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -115,7 +163,7 @@ public class Frame extends JFrame {
 		http.setBounds(6, 743, 92, 29);
 		contentPane.add(http);
 
-		JButton https = new JButton("HTTPS");
+
 		https.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -133,17 +181,19 @@ public class Frame extends JFrame {
 		https.setBounds(102, 743, 92, 29);
 		contentPane.add(https);
 
+		JScrollPane viewhtml = new JScrollPane(result);
+		viewhtml.setBounds(6, 85, 988, 319);
+		contentPane.add(viewhtml);
 
-
-		JScrollPane scrollPane = new JScrollPane(result);
-		scrollPane.setBounds(6, 29, 988, 711);
-		contentPane.add(scrollPane);
+		JScrollPane selector = new JScrollPane(csstext);
+		selector.setBounds(6, 416, 988, 320);
+		contentPane.add(selector);
 
 
 		status.setBounds(588, 748, 171, 16);
 		contentPane.add(status);
 
-		JButton log = new JButton("검색기록");
+
 		log.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -154,9 +204,33 @@ public class Frame extends JFrame {
 		log.setBounds(759, 743, 117, 29);
 		contentPane.add(log);
 
+
+		lblAttr.setBounds(6, 62, 41, 16);
+		contentPane.add(lblAttr);
+
 		result.setEditable(false);
+		csstext.setEditable(false);
 
 		setVisible(true);
 
+	}
+
+	class MyItemListener implements java.awt.event.ItemListener{
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+
+			if(e.getStateChange()==ItemEvent.DESELECTED){
+				return;
+			}
+
+			if(radioButton.isSelected()){
+				type = false;
+			}
+			else if(radioButton_1.isSelected()){
+				type = true;
+			}
+
+		}
 	}
 }
