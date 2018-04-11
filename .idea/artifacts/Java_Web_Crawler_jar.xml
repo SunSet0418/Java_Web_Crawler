@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Java_Web_Crawler:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Java_Web_Crawler_jar</output-path>
+    <root id="archive" name="Java_Web_Crawler.jar">
+      <element id="module-output" name="Java_Web_Crawler" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/lib/jsoup-1.11.2.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Java_WebCwroller" />
+      <element id="library" level="project" name="Java_WebCwroller1" />
+      <element id="library" level="project" name="jsoup-1.11.21" />
+    </root>
+  </artifact>
+</component>

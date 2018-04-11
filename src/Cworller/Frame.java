@@ -19,7 +19,7 @@ public class Frame extends JFrame {
 
 	private JPanel contentPane;
 
-	Boolean type = false;
+	private int type = 0;
 
 	JTextArea result = new JTextArea();
 	JTextArea csstext = new JTextArea();
@@ -107,11 +107,11 @@ public class Frame extends JFrame {
 						else{
 							String link = url.getText();
 							String html = code.getHtml(link).toString();
-							if(type == false){
+							if(type == 1){
 								String text = code.getData(cssselector.getText());
 								csstext.setText(text);
 							}
-							else if(type == true){
+							else if(type == 2){
 								String text = code.getAttr(cssselector.getText(), attr.getText());
 								csstext.setText(text);
 							}
@@ -197,7 +197,7 @@ public class Frame extends JFrame {
 		log.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				status.setText("Show 검색기록");
+				status.setText("검색기록 Open");
 				logger.list();
 			}
 		});
@@ -225,10 +225,10 @@ public class Frame extends JFrame {
 			}
 
 			if(radioButton.isSelected()){
-				type = false;
+				type = 1;
 			}
 			else if(radioButton_1.isSelected()){
-				type = true;
+				type = 2;
 			}
 
 		}
